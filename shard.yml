@@ -1,0 +1,9 @@
+name: delegate
+version: 0.1.0
+
+authors:
+  - Andy Nicholson <andrew@anicholson.net>
+
+crystal: 0.26.0
+
+license: MIT
