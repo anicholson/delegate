@@ -1,6 +1,6 @@
 # delegate
 
-TODO: Write a description here
+Ruby's delegate feature, implemented as Crystal macros.
 
 ## Installation
 
@@ -9,20 +9,63 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   delegate:
-    github: your-github-user/delegate
+    github: anicholson/delegate
 ```
 
 ## Usage
 
 ```crystal
 require "delegate"
+
+class Engine
+  def state
+    :stopped
+  end
+end
+
+class Car
+  include Delegate
+
+  def initialize(@engine)
+  end
+
+  private getter engine
+
+  delegate to: engine, methods: [state]
+end
+
+car = Car.new(Engine.new)
+
+car.state # => :stopped
 ```
 
-TODO: Write usage instructions here
+delegating to non-implemented methods results in a compile-time error:
+
+```crystal
+
+require "delegate"
+
+# ... Engine definition as before
+
+class Motorbike
+  def initialize(@engine)
+  end
+
+  private getter engine
+
+  delegate to: engine, methods: [state, current_gear]
+end
+
+bike = Motorbike.new(Engine.new)
+bike.current_gear # :boom: compile error: Engine does not implement :current_gear
+
+```
 
 ## Development
 
-TODO: Write development instructions here
+1. Check out the code via `git clone`
+2. Run `shards install`
+3. Run `crystal spec` to run all tests.
 
 ## Contributing
 
@@ -34,4 +77,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [your-github-user](https://github.com/your-github-user) Andy Nicholson - creator, maintainer
+- [anicholson](https://github.com/anicholson) Andy Nicholson - creator, maintainer
