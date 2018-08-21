@@ -1,6 +1,11 @@
-# TODO: Write documentation for `Delegate`
 module Delegate
   VERSION = "0.1.0"
 
-  # TODO: Put your code here
+  macro delegate(to, methods)
+    {% for m in methods %}
+      def {{m.id}}
+        {{to}}.{{m.id}}
+      end
+    {% end %}
+  end
 end
