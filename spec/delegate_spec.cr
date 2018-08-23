@@ -34,16 +34,23 @@ class Motorbike
   end
 end
 
+class GearBox
+  def change_gear(gear)
+    gear
+  end
+end
+
 class Hovercraft
   include Delegate
 
   def initialize
-    @engine = Engine.new
+    @engine  = Engine.new
+    @gearbox = GearBox.new
   end
 
-  private getter engine
+  private getter gearbox
 
-  delegate to: engine, methods: [current_gear]
+  delegate to: gearbox, methods: [change_gear]
 end
 
 
@@ -58,9 +65,9 @@ describe Delegate do
     bike.state.should eq(:parked)
   end
 
-  it "delegates to non-existent methods should not compile" do
-    hovercraft = Hovercraft.new
+  it "preserves arity" do
+    craft = Hovercraft.new
 
-    hovercraft.current_gear
+    craft.change_gear(:park).should eq(:park)
   end
 end
