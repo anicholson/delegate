@@ -3,8 +3,8 @@ module Delegate
 
   macro delegate(to, methods)
     {% for m in methods %}
-      def {{m.id}}
-        {{to}}.{{m.id}}
+      def {{m.id}}(*args)
+        {{to}}.{{m.id}}(*args)
       end
     {% end %}
   end
