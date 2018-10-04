@@ -1,7 +1,7 @@
 # delegate
 
 Ruby's delegate feature, implemented as Crystal macros.
-
+[![Build Status](https://travis-ci.org/anicholson/delegate.svg?branch=master)](https://travis-ci.org/anicholson/delegate)
 ## Installation
 
 Add this to your application's `shard.yml`:
